@@ -6,10 +6,6 @@
 </head>
 
 <body>
-  <div>
-    <input class="js-input-message" placeholder="Ask me something" size="50" />
-    <button>Send</button>
-  </div>
   <div class="js-container"></div>
 
   <script src="https://unpkg.com/supersimpledev/react.js"></script>
@@ -18,55 +14,100 @@
   <script src="https://unpkg.com/supersimpledev/babel.js"></script>
   <script type="text/babel">
 
-    function ChatMessage({ message, sender }) {
-      console.log(sender);
-      if (sender === 'user') {
-        return (
-          <div>
-            {message}
-            <img src="./images/user.png" width="50" />
-          </div>
-        );
-      } else if (sender === 'bot') {
-        return (
-          <div>
-            <img src="./images/robot.png" width="50" />
-            {message}
-          </div>
-        );
+    // to handle all input feature
+    function ChatInput({ chatMessages, setChatMessages }) {
+      const [inputText, setInputText] = React.useState('');
+
+      // saves into inputText
+      function saveChatMessage(event) {
+        setInputText(event.target.value);
       }
+
+      // adds inputText to chatMessages with default sender: "user"
+      function sendChatMessage() {
+        setChatMessages([
+          ...chatMessages,
+          {
+            message: inputText, sender: "user", id: crypto.randomUUID()
+          }
+        ]);
+      }
+      function sendChatMessageOnEnterKeyPress(event) {
+        event.key === 'Enter' ? sendChatMessage() : undefined;
+      }
+      
+      return (
+        <div>
+          <input className="js-input-message" placeholder="Ask me something" size="50"
+            onChange={saveChatMessage} onKeyPress={sendChatMessageOnEnterKeyPress} />
+          <button className="js-send-button" onClick={sendChatMessage}>Send</button>
+        </div>
+      );
     }
 
-    function App() {
+
+    // iterate chatMessages array and generate html with all chat messages
+    function ChatMessages({ chatMessages }) {
+
+      // to generate chat message html based on sender
+      function ChatMessage({ message, sender }) {
+        if (sender === 'user') {
+          return (
+            <div>
+              {message}
+              <img src="./images/user.png" width="50" />
+            </div>
+          );
+        } else if (sender === 'bot') {
+          return (
+            <div>
+              <img src="./images/robot.png" width="50" />
+              {message}
+            </div>
+          );
+        }
+      }
       return (
         <>
-          <ChatMessage message="hello bot" sender="user" />
-          <ChatMessage message="hello human" sender="bot" />
-          <ChatMessage message="tell me a joke" sender="user" />
-          <ChatMessage message="you are smart!" sender="bot" />
+          {chatMessages.map((chatMessage) => {
+            return (
+              <ChatMessage message={chatMessage.message} sender={chatMessage.sender} key={chatMessage.id} />
+            );
+          })}
         </>
       );
     }
 
-    function TakeInput() {
 
-      const inputDom = document.querySelector('.js-input-message');
-      inputDom.addEventListener('keydown', (event) => {
-
-        if (event.key === 'Enter') {
-          const message = inputDom.value;
-          return (
-            <>
-              <ChatMessage message={message} sender="user" />
-            </>
-          );
+    // main app
+    function App() {
+      const [chatMessages, setChatMessages] = React.useState([
+        {
+          message: "hello bot", sender: "user", id: crypto.randomUUID()
+        },
+        {
+          message: "hello human", sender: "bot", id: crypto.randomUUID()
+        },
+        {
+          message: "tell me a joke", sender: "user", id: crypto.randomUUID()
+        },
+        {
+          message: "you are smart!", sender: "bot", id: crypto.randomUUID()
         }
-      });
+      ]);
+
+      return (
+        <>
+          <ChatInput chatMessages={chatMessages} setChatMessages={setChatMessages} />
+          <ChatMessages chatMessages={chatMessages} />
+        </>
+      );
     }
+
     const container = document.querySelector('.js-container');
     ReactDOM.createRoot(container).render((
       <>
-        <TakeInput />
+        <App />
       </>
     ));
 
