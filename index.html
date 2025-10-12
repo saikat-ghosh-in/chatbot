@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Chatbot</title>
+</head>
+
+<body>
+  <div>
+    <input class="js-input-message" placeholder="Ask me something" size="50" />
+    <button>Send</button>
+  </div>
+  <div class="js-container"></div>
+
+  <script src="https://unpkg.com/supersimpledev/react.js"></script>
+  <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+  <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+  <script type="text/babel">
+
+    function ChatMessage({ message, sender }) {
+      console.log(sender);
+      if (sender === 'user') {
+        return (
+          <div>
+            {message}
+            <img src="./images/user.png" width="50" />
+          </div>
+        );
+      } else if (sender === 'bot') {
+        return (
+          <div>
+            <img src="./images/robot.png" width="50" />
+            {message}
+          </div>
+        );
+      }
+    }
+
+    function App() {
+      return (
+        <>
+          <ChatMessage message="hello bot" sender="user" />
+          <ChatMessage message="hello human" sender="bot" />
+          <ChatMessage message="tell me a joke" sender="user" />
+          <ChatMessage message="you are smart!" sender="bot" />
+        </>
+      );
+    }
+
+    function TakeInput() {
+
+      const inputDom = document.querySelector('.js-input-message');
+      inputDom.addEventListener('keydown', (event) => {
+
+        if (event.key === 'Enter') {
+          const message = inputDom.value;
+          return (
+            <>
+              <ChatMessage message={message} sender="user" />
+            </>
+          );
+        }
+      });
+    }
+    const container = document.querySelector('.js-container');
+    ReactDOM.createRoot(container).render((
+      <>
+        <TakeInput />
+      </>
+    ));
+
+  </script>
+</body>
+
+</html>
