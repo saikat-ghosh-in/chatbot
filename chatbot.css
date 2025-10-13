@@ -60,6 +60,11 @@ body {
   max-width: 300px;
 }
 
+.chat-message-user .chat-message-text {
+  background-color: rgb(16, 185, 129);
+  color: white;
+}
+
 .chat-message-profile {
   width: 45px;
 }
@@ -70,4 +75,18 @@ body {
   overflow: scroll;
   scrollbar-width: none;
 
+}
+
+
+.chat-message-text img.loading-spinner {
+  height: 36px;
+  display: block;
+  margin: -15px;
+}
+
+/* center the spinner vertically inside bot bubble */
+.chat-message-bot .chat-message-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
