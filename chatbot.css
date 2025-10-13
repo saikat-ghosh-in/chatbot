@@ -9,7 +9,7 @@ body {
   margin-bottom: 0px;
   background: linear-gradient(180deg, var(--bg), var(--surface));
   color: var(--text);
-  transition: background 400ms ease, color 400ms ease;
+  transition: background 600ms ease, color 600ms ease;
 }
 
 :root {
@@ -165,7 +165,7 @@ body {
   border-radius: 50%;
   background: var(--toggle-thumb-bg);
   box-shadow: 0 1px 18px rgba(199, 209, 255, 0.5);
-  transition: left 300ms cubic-bezier(.2, .9, .2, 1), background 300ms, box-shadow 300ms, transform 300ms;
+  transition: left 600ms cubic-bezier(.2, .9, .2, 1), background 600ms, box-shadow 600ms, transform 600ms;
   position: absolute;
   left: 5px; /* matches track padding */
   top: 50%;
