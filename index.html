@@ -121,6 +121,13 @@
     // main app
     function App() {
       const [chatMessages, setChatMessages] = React.useState([]);
+      const [theme, setTheme] = React.useState(() => localStorage.getItem('theme') || 'light');
+
+      // persist theme to localStorage and set data-theme on body for CSS
+      React.useEffect(() => {
+        localStorage.setItem('theme', theme);
+        document.documentElement.setAttribute('data-theme', theme);
+      }, [theme]);
 
       // on mount, show a welcome bot message using spinner + typed response
       React.useEffect(() => {
@@ -135,6 +142,14 @@
         <div className="app-container">
           <ChatMessages chatMessages={chatMessages} />
           <ChatInput chatMessages={chatMessages} setChatMessages={setChatMessages} />
+          <div className="toggle-button-container">
+            <div className="theme-toggle" onClick={() => setTheme(prev => prev === 'light' ? 'dark' : 'light') } role="button" tabIndex={0}>
+              <div className="toggle-track">
+                <div className={`toggle-thumb ${theme === 'dark' ? 'dark' : 'light'}`}></div>
+              </div>
+              <div className="toggle-label">{theme === 'light' ? 'Light' : 'Dark'}</div>
+            </div>
+          </div>
         </div>
       );
     }

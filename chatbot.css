@@ -1,12 +1,48 @@
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-family: Arial;
   margin-top: 0px;
   margin-bottom: 0px;
+  background: linear-gradient(180deg, var(--bg), var(--surface));
+  color: var(--text);
+  transition: background 400ms ease, color 400ms ease;
+}
+
+:root {
+  /* light theme variables */
+  --bg: rgb(255, 255, 255);
+  --surface: rgb(255, 255, 255);
+  --muted: rgb(238, 238, 238);
+  --text: rgb(17, 24, 39);
+  --accent: rgb(16, 185, 129);
+  --bot-bubble: rgb(241, 245, 249);
+  /* toggle variables */
+  --toggle-track: linear-gradient(135deg, rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.04));
+  --toggle-thumb-bg: linear-gradient(180deg, rgb(255, 255, 255), rgb(221, 233, 248));
+  --toggle-thumb-bg-active: linear-gradient(180deg, rgb(17, 24, 39), rgb(11, 18, 32));
+}
+
+[data-theme="dark"] {
+  --bg: rgb(11, 18, 32);
+  /* deep background */
+  --surface: rgb(15, 23, 36);
+  --muted: rgb(11, 19, 32);
+  --text: rgb(230, 238, 248);
+  --accent: rgb(16, 185, 129);
+  /* green */
+  --bot-bubble: rgb(15, 23, 36);
+  --toggle-track: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.12));
+  --toggle-thumb-bg: linear-gradient(180deg, rgb(17, 24, 39), rgb(11, 18, 32));
+  --toggle-thumb-bg-active: linear-gradient(180deg, rgb(16, 185, 129), rgb(11, 18, 32));
 }
 
 .send-button {
-  background-color: rgb(25, 135, 84);
-  color: white;
+  background-color: var(--accent);
+  color: rgb(255, 255, 255);
   padding: 12px 20px;
   margin-left: 10px;
   border: none;
@@ -26,7 +62,6 @@ body {
 
 .chat-input-container {
   display: flex;
-  margin-bottom: 60px;
 }
 
 .app-container {
@@ -37,6 +72,9 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  /* make container transparent so the whole window background shows */
+  background: transparent;
+  color: inherit;
 }
 
 .chat-message-user {
@@ -51,7 +89,7 @@ body {
 }
 
 .chat-message-text {
-  background-color: rgb(238, 238, 238);
+  background-color: var(--bot-bubble);
   padding: 15px 20px;
   border-radius: 10px;
   margin-right: 10px;
@@ -61,8 +99,8 @@ body {
 }
 
 .chat-message-user .chat-message-text {
-  background-color: rgb(16, 185, 129);
-  color: white;
+  background-color: var(--accent);
+  color: rgb(255, 255, 255);
 }
 
 .chat-message-profile {
@@ -81,7 +119,7 @@ body {
 .chat-message-text img.loading-spinner {
   height: 36px;
   display: block;
-  margin: -15px;
+  margin: 0;
 }
 
 /* center the spinner vertically inside bot bubble */
@@ -89,4 +127,72 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Theme toggle styles */
+.toggle-button-container {
+  padding: 8px 0px;
+  display: flex;
+  justify-Content: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.theme-toggle {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+}
+
+.theme-toggle .toggle-track {
+  width: 72px;
+  height: 26px;
+  background: var(--toggle-track);
+  border-radius: 999px;
+  position: relative;
+  box-shadow: 0 2px 18px rgba(0,0,0, 0.15), inset 0 -2px 2px rgba(255, 255, 255, 0.02);
+  /* border: 0.5px solid rgb(243, 243, 243); */
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.theme-toggle .toggle-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--toggle-thumb-bg);
+  box-shadow: 0 1px 18px rgba(199, 209, 255, 0.5);
+  transition: left 300ms cubic-bezier(.2, .9, .2, 1), background 300ms, box-shadow 300ms, transform 300ms;
+  position: absolute;
+  left: 5px; /* matches track padding */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.theme-toggle .toggle-thumb.dark {
+  left: calc(100% - 5px - 26px); /* place at right end: track width - padding - thumb width */
+  background: var(--toggle-thumb-bg-active);
+}
+
+.theme-toggle .toggle-label {
+  font-size: 13px;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+/* subtle neon glow in dark mode */
+[data-theme="dark"] .theme-toggle .toggle-track {
+  background: var(--toggle-track);
+}
+
+[data-theme="dark"] .theme-toggle .toggle-thumb.dark {
+  box-shadow: 0 6px 24px rgba(16, 185, 129, 0.14), 0 0 18px rgba(16, 185, 129, 0.08) inset;
+}
+
+/* ensure toggle label is visible against themed background */
+.theme-toggle .toggle-label {
+  color: var(--text);
 }
