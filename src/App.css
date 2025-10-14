@@ -1,16 +1,3 @@
-html,
-body {
-  height: 100%;
-}
-
-body {
-  font-family: Arial;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  background: linear-gradient(180deg, var(--bg), var(--surface));
-  color: var(--text);
-  transition: background 600ms ease, color 600ms ease;
-}
 
 :root {
   /* light theme variables */
