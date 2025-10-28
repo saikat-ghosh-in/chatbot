@@ -1,8 +1,8 @@
 
-import { typeOutResponse } from './Utils.jsx';
+import { typeOutResponse } from './Utils';
 
-import {Chatbot} from 'supersimpledev'
-import { useState } from 'react'
+import { Chatbot } from 'supersimpledev';
+import { useState } from 'react';
 
 // to handle all input feature
 export function ChatInput({ setChatMessages }) {

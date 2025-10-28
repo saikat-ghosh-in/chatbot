@@ -1,8 +1,8 @@
 
-import { ChatInput } from './components/ChatInput.jsx';
-import { ChatMessages } from './components/ChatMessages.jsx';
-import { typeOutResponse } from './components/Utils.jsx';
-import './App.css'
+import { ChatInput } from './components/ChatInput';
+import { ChatMessages } from './components/ChatMessages';
+import { typeOutResponse } from './components/Utils'; // no need to mention .jsx
+import './App.css';
 
 import { useState, useRef, useEffect } from 'react'
 

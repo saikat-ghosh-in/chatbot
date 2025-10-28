@@ -1,7 +1,7 @@
 
-import BotProfileImg from '../assets/images/robot.png'
-import UserProfileImg from '../assets/images/user.png'
-import LoadingSpinnerGif from '../assets/gifs/loading-spinner.gif'
+import BotProfileImg from '../assets/images/robot.png';
+import UserProfileImg from '../assets/images/user.png';
+import LoadingSpinnerGif from '../assets/gifs/loading-spinner.gif';
 
 // to generate chat message html based on sender
 export function ChatMessage({ message, sender, loading }) {

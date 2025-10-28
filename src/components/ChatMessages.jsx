@@ -1,7 +1,7 @@
 
-import { ChatMessage } from './ChatMessage.jsx'
+import { ChatMessage } from './ChatMessage';
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react';
 
 // iterate chatMessages array and generate html with all chat messages
 export function ChatMessages({ chatMessages }) {
